@@ -1,14 +1,6 @@
 import sys
 
 
-def find(x):
-    if x == parent[x]:
-        return x
-    parent[x] = find(parent[x])
-    return parent[x]
-
-
-sys.setrecursionlimit(100000)
 input = sys.stdin.readline
 G = int(input())
 P = int(input())
@@ -18,10 +10,13 @@ res = 0
 for _ in range(P):
     plane = int(input())
 
-    gate = find(plane)
+    gate = plane
+    while parent[gate] != gate:
+        gate = parent[gate]
     if gate == 0:
         break
     else:
         parent[gate] = gate - 1
+        parent[plane] = parent[gate]
         res += 1
 print(res)
