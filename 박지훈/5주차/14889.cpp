@@ -27,43 +27,45 @@ private:
 	{
 		cin >> mN;
 		mHalfN = mN >> 1;
-		mTeam.resize(2);
-		mTable.resize(mN, vi(mN));
+		mTeam.resize(2);			// 팀원을 넣을 두개의 팀 배열
+		mTable.resize(mN, vi(mN));	// 능력치 테이블
+
 		for (auto& row : mTable)
 			for (auto& i : row)
 				cin >> i;
 	}
 
-	void backTracking(int n, int tot)
+	void backTracking(int player, int tot)	// 현재 player를 A팀, B팀에 넣는 경우로 분기, tot: 두 팀의 전력 차이 
 	{
-		if (n == mN)
+		if (player == mN)	// 마지막 선수까지 팀에 배정 되면 계산
 		{
 			mAns = min(mAns, abs(tot));
 			return;
 		}
 
-		for (int i = 0; i < 2; i++)
+		for (int team = 0; team < 2; team++)
 		{
-			if (mTeam[i].size() < mHalfN)
+			if (mTeam[team].size() < mHalfN)	// 해당 팀의 크기가 N/2보다 작을 경우에 팀원을 넣어줌
 			{
-				int var = update(i, n);
-				mTeam[i].push_back(n);
+				int var = update(team, player);	// 현재 player가 해당 팀에 들어갈 경우 얻어지는 능력치
+				mTeam[team].push_back(player);	// 현재 team에 player 넣어주기
 
-				if (i & 1)
-					backTracking(n + 1, tot - var);
+				if (team & 1)					// 두 팀의 능력치 차이를 갱신하여 다음 깊이에 넘겨줌
+					backTracking(player + 1, tot - var);
 				else
-					backTracking(n + 1, tot + var);
+					backTracking(player + 1, tot + var);
 
-				mTeam[i].pop_back();
+				mTeam[team].pop_back();			// 다음 탐색을 위해 현재 팀에서 player를 빼주기
 			}
 		}
 	}
 
-	inline int update(int team, int n)
+	//	해당 player가 넘겨준 team의 소속이 될 경우 생기는 능력치 반환
+	inline int update(int team, int player)
 	{
 		int tot = 0;
 		for (auto member : mTeam[team])
-			tot += mTable[n][member] + mTable[member][n];
+			tot += mTable[player][member] + mTable[member][player];
 
 		return tot;
 	}
