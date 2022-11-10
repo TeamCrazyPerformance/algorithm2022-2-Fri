@@ -1,58 +1,47 @@
 import java.io.*;
+import java.util.*;
 
-public class Boj9663_2 {
+public class Boj9663 {
     public static void main(String[] args) throws IOException {
         BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter output = new BufferedWriter(new OutputStreamWriter(System.out));
 
         int n = Integer.parseInt(input.readLine());
         input.close();
-        boolean[][] board = new boolean[n][n];
-        int[] arr = new int[n];
+        int[] queenColumnNum = new int[n];
+        boolean[] isUsed = new boolean[n];
+        Arrays.fill(queenColumnNum, -1);
 
-        output.write(backTracking(n * n, n, arr, board, 0) + "");
+        output.write(backTracking(n, 0, queenColumnNum, 0, isUsed) + "");
         output.flush();
         output.close();
     }
 
-    public static boolean canPlace(int i, int j, boolean[][] board) {
-        for (int k = 0; k < board.length; k++) {
-            if (i >= k && j >= k)
-                if (board[i - k][j - k] == true)
-                    return false;
-            if (i + k < board.length && j + k < board.length)
-                if (board[i + k][j + k] == true)
-                    return false;
-            if (i >= k && j + k < board.length)
-                if (board[i - k][j + k] == true)
-                    return false;
-            if (i + k < board.length && j >= k)
-                if (board[i + k][j - k] == true)
-                    return false;
-            if (board[k][j] == true || board[i][k] == true)
+    public static boolean checkPlace(int row, int col, int[] arr) {
+        for (int i = 1; i <= row; i++) {
+            if (col + i == arr[row - i] || col - i == arr[row - i])
                 return false;
         }
         return true;
     }
 
-    public static long backTracking(int n, int m, int[] arr, boolean[][] board, long count) {
-        int p;
-        if (arr.length == m)
-            p = 0;
-        else
-            p = arr.length - m - 1;
-
-        for (int i = p; i < n; i++) {
-            if ((m < arr.length && arr[arr.length - m - 1] >= i)
-                || !canPlace(i / arr.length, i % arr.length, board))
-                continue;
-            arr[arr.length - m] = i;
-            board[i / arr.length][i % arr.length] = true;
-            if (m == 1)
-                count++;
-            else
-                count = backTracking(n, m - 1, arr, board, count);
-            board[i / arr.length][i % arr.length] = false;
+    public static int backTracking(int n, int m, int[] arr, int count, boolean[] check) {
+        for (int i = 0; i < arr.length; i++) {
+            if (check[i] == false && checkPlace(m, i, arr)) {         // 중복 선택 방지
+                arr[m] = i;                                           // m번째 행의 열 번호 선택
+                check[i] = true;
+                /*
+                for (int j = 0; j < arr.length; j++)
+                    System.out.print(arr[j] + " ");
+                System.out.println();
+                */
+                if (m == n - 1)
+                    count++;
+                else
+                    count = backTracking(n, m + 1, arr, count, check);
+                check[i] = false; 
+            }
+            
         }
         return count;
     }
