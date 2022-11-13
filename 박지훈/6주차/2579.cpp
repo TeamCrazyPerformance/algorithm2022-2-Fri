@@ -20,7 +20,7 @@ public:
 
 	void Solve()
 	{
-		int score;		// °è´ÜÀÇ Á¡¼ö ÀúÀå
+		int score;		// ê³„ë‹¨ì˜ ì ìˆ˜ ì €ìž¥
 		cin >> score;
 		mDp.push_back({ 0, 0 });
 		mDp.push_back({ score, 0 });
@@ -28,10 +28,10 @@ public:
 		{
 			cin >> score;
 
-			// mDp[i][0] = max(mDp[i-2][0], mDp[i-2][1] + score
-			// mDp[i][1] = mDp[i-1][0] + score ¿Í °°À½
+			// mDp[i][0] = max(mDp[i-2][0], mDp[i-2][1]) + score
+			// mDp[i][1] = mDp[i-1][0] + score ì™€ ê°™ìŒ
 			mDp.push_back({ max(mDp.front().first, mDp.front().second) + score, mDp.back().first + score });
-			mDp.pop_front();	//mDp[i-2]ºÎºÐÀº ´õÀÌ»ó ÇÊ¿ä ¾øÀ¸´Ï ÃßÃâ
+			mDp.pop_front();	//mDp[i-2]ë¶€ë¶„ì€ ë”ì´ìƒ í•„ìš” ì—†ìœ¼ë‹ˆ ì¶”ì¶œ
 		}
 
 		cout << max(mDp.back().first, mDp.back().second);
