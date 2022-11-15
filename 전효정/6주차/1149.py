@@ -1,5 +1,5 @@
-# 인터넷에서 가지고 왔습니다.
-
+#인터넷에서 가지고 왔습니
+#https://myjamong.tistory.com/309
 import sys
 read = sys.stdin.readline
 
