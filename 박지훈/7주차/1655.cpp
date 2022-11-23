@@ -31,7 +31,7 @@ public:
 			if (x >= minHeap.top())
 			{
 				minHeap.push(x);
-				if ((minHeap.size() - maxHeap.size()) & 2)	// 0 아니면 2
+				if ((minHeap.size() - maxHeap.size()) & 2)	// 0, 1, 2 중 하나
 				{
 					maxHeap.push(minHeap.top());
 					minHeap.pop();
@@ -40,7 +40,7 @@ public:
 			else
 			{
 				maxHeap.push(x);
-				if ((maxHeap.size() - minHeap.size()) & 2)	// 0 아니면 2
+				if ((maxHeap.size() - minHeap.size()) & 2)	// 0, 1, 2 중 하나
 				{
 					minHeap.push(maxHeap.top());
 					maxHeap.pop();
