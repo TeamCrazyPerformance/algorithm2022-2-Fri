@@ -1,6 +1,6 @@
-# 메모리초과 
+# 메모리초과+ 틀렸습니다
 import sys
-sys.setrecursionlimit(10**9) 
+sys.setrecursionlimit(10**9)    # --> sys.setrecursionlimit(10**5)로 
 N, M, R = map(int, sys.stdin.readline().split())
 
 undirected_graph = [[]for i in range(N+1)]  # 0index이므로 N+1\
