@@ -6,7 +6,6 @@ input = sys.stdin.readline
 N, M, R = map(int, input().split())
 
 graph = {i: [] for i in range(1, N + 1)}
-visited = [False for i in range(N + 1)]
 res = [0 for _ in range(N + 1)]
 
 for _ in range(M):
@@ -22,10 +21,9 @@ def dfs(v):
     global cnt
     res[v] = cnt
     cnt += 1
-    visited[v] = True
 
     for i in graph[v]:
-        if not visited[i]:
+        if res[i] == 0:
             dfs(i)
 
 dfs(R)
