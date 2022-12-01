@@ -5,7 +5,7 @@ input = sys.stdin.readline
 
 def dfs(x,y):
     # if x >= 0 and x < N and y >= 0 and y < M:     
-    #     return True  
+    #     return True                             #아닌 경우에 False 처리 되지 않아서 틀린 답안. 
     if x <= -1 or x >= N or y <= -1 or y >= M:    #세로: 0 <= x < N  가로: 0 <= y < M
         return False
     if ground[x][y] ==1:
