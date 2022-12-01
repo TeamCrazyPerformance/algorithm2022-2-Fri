@@ -14,9 +14,9 @@ for i in range(M):
 def dfs(R): 
     global cnt
     visited[R] = cnt 
-    undirected_graph[R].sort()
+    undirected_graph[R].sort()      # 함수 안에서 정렬. 
     for i in undirected_graph[R]:
-        if visited[i] ==0:
+        if visited[i] == 0:
             cnt += 1
             dfs(i)
 
