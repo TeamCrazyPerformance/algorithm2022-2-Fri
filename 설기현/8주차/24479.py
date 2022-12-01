@@ -12,7 +12,7 @@ for i in range(M):
     # undirected_graph[v].sort()
 
 def dfs(R): 
-    global cnt
+    global cnt                      # global 변수로 설정. 
     visited[R] = cnt 
     undirected_graph[R].sort()      # 함수 안에서 정렬. 
     for i in undirected_graph[R]:
