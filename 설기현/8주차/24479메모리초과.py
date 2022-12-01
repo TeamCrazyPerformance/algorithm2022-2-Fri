@@ -10,6 +10,7 @@ for i in range(M):
     undirected_graph[u].append(v)
     undirected_graph[v].append(u)
     undirected_graph[u].sort()
+    undirected_graph[v].sort()
 
 def dfs(R,cnt):
     visited[R] = cnt 
@@ -50,3 +51,5 @@ for i in range(1,N+1):
 3
 3
 '''
+
+
