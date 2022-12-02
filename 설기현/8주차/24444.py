@@ -1,4 +1,5 @@
 # 24444 알고리즘 수업 - 너비 우선 탐색 1
+#Python에서 Queue 자료구조는 Stack과 Queue를 합친 Deque을 사용. collections 라이브러리의 deque(double-ended queue의 약자)
 from collections import deque 
 import sys
 input = sys.stdin.readline
@@ -17,7 +18,7 @@ q = deque([R])
 visited[R] = cnt     #R 인덱스 먼저 초기화
 
 while q:
-    ql = q.popleft()    # 맨 왼쪽 값 pop시키도록. 
+    ql = q.popleft()    # 가장 앞(front)의 pop은 popleft(queue로 동작) 그리고 가장 오른쪽(상위-rear) pop은 pop(stack처럼 동작) 연산을 사용.
     undirected_graph[ql].sort()
     for i in undirected_graph[ql]:
         if visited[i] == 0:
